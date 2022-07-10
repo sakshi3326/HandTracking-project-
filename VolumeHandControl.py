@@ -1,6 +1,7 @@
 import cv2
 import time
 import mediapipe
+import numpy
 import numpy as np
 import math
 import handtrackingmodule as htm
@@ -48,6 +49,12 @@ while True:
 
         length = math.hypot(x2-x1,y2-y1)
         #print(length)
+
+        #hand range50 - 300
+        # volume range -65 - 0
+
+        vol = numpy.interp(length, [50, 300], [minVol, maxVol])
+        print(vol)
 
         if length<50:
             cv2.circle(img, (cx, cy), 10, (0,255,0), cv2.FILLED)
