@@ -24,7 +24,7 @@ volume = cast(interface, POINTER(IAudioEndpointVolume))
 #volume.getMute()
 #volume.GetMAsterVolumeLevel()
 volRange = volume.GetVolumeRange()
-volume.SetMasterVolumeLevel(-0.0, None)
+
 minVol = volRange[0]
 maxVol = volRange[1]
 
@@ -53,8 +53,9 @@ while True:
         #hand range50 - 300
         # volume range -65 - 0
 
-        vol = numpy.interp(length, [50, 300], [minVol, maxVol])
+        vol = numpy.interp(length, [5, 150], [minVol, maxVol])
         print(vol)
+        volume.SetMasterVolumeLevel(vol, None)
 
         if length<50:
             cv2.circle(img, (cx, cy), 10, (0,255,0), cv2.FILLED)
