@@ -27,7 +27,8 @@ volRange = volume.GetVolumeRange()
 
 minVol = volRange[0]
 maxVol = volRange[1]
-
+vol = 0
+volBar = 400
 
 
 
@@ -45,7 +46,7 @@ while True:
         cv2.circle(img,(x1,y1), 10, (255,0,255), cv2.FILLED)
         cv2.circle(img, (x2, y2), 10, (255, 0, 255), cv2.FILLED)
         cv2.circle(img, (cx, cy), 10, (255, 0, 255), cv2.FILLED)
-        cv2.line(img,(x1,y1),(x2,y2),(255,0,255),3)
+        cv2.line(img, (x1, y1), (x2, y2), (255, 0, 255), 3)
 
         length = math.hypot(x2-x1,y2-y1)
         #print(length)
@@ -54,11 +55,16 @@ while True:
         # volume range -65 - 0
 
         vol = numpy.interp(length, [5, 150], [minVol, maxVol])
+        volBar = numpy.interp(length, [5, 150], [400, 150])
         print(vol)
         volume.SetMasterVolumeLevel(vol, None)
 
         if length<50:
+
             cv2.circle(img, (cx, cy), 10, (0,255,0), cv2.FILLED)
+
+    cv2.rectangle(img, (5, 150), (85, 400), (0, 255, 0), 3)
+    cv2.rectangle(img, (8, int(volBar)), (85, 400), (0, 255, 0), cv2.FILLED)
 
 
     cTime = time.time()
