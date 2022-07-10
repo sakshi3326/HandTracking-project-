@@ -29,7 +29,7 @@ minVol = volRange[0]
 maxVol = volRange[1]
 vol = 0
 volBar = 400
-
+volPer = 0
 
 
 while True:
@@ -55,7 +55,8 @@ while True:
         # volume range -65 - 0
 
         vol = numpy.interp(length, [5, 150], [minVol, maxVol])
-        volBar = numpy.interp(length, [5, 150], [400, 150])
+        volBar = numpy.interp(length, [5, 180], [400, 150])
+        volPer = numpy.interp(length, [5, 180], [0, 100])
         print(vol)
         volume.SetMasterVolumeLevel(vol, None)
 
@@ -63,9 +64,9 @@ while True:
 
             cv2.circle(img, (cx, cy), 10, (0,255,0), cv2.FILLED)
 
-    cv2.rectangle(img, (5, 150), (85, 400), (0, 255, 0), 3)
-    cv2.rectangle(img, (8, int(volBar)), (85, 400), (0, 255, 0), cv2.FILLED)
-
+    cv2.rectangle(img, (5, 150), (85, 400), (255, 0, 0), 3)
+    cv2.rectangle(img, (8, int(volBar)), (85, 400), (255, 0, 0), cv2.FILLED)
+    cv2.putText(img, f'{int(volPer)} %', (50, 370), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 250, 0), 3)
 
     cTime = time.time()
     fps = 1 / (cTime - pTime)
